@@ -7,9 +7,9 @@ namespace BlazorECommerce.Server.Controllers;
 [ApiController]
 public class ProductController : ControllerBase
 {
-    private static List<Product> Products = new List<Product>
+    private static List<Product> Products = new ()
     {
-        new Product
+        new ()
         {
             Id = 1,
             Title = "The Hitchhiker's Guide to the Galaxy",
@@ -17,15 +17,14 @@ public class ProductController : ControllerBase
             ImgUrl = "https://upload.wikimedia.org/wikipedia/en/b/bd/H2G2_UK_front_cover.jpg",
             Price = 9.99m
         },
-        new Product
-        {
+        new() {
             Id = 2,
             Title = "Ready Player One",
             Description = "Ready Player One is a 2011 science fiction novel, and the debut novel of American author Ernest Cline. The story, set in a dystopia in 2045, follows protagonist Wade Watts on his search for an Easter egg in a worldwide virtual reality game, the discovery of which would lead him to inherit the game creator's fortune. Cline sold the rights to publish the novel in June 2010, in a bidding war to the Crown Publishing Group (a division of Random House).[1] The book was published on August 16, 2011.[2] An audiobook was released the same day; it was narrated by Wil Wheaton, who was mentioned briefly in one of the chapters.[3][4]Ch. 20 In 2012, the book received an Alex Award from the Young Adult Library Services Association division of the American Library Association[5] and won the 2011 Prometheus Award.",
             ImgUrl = "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Ready_Player_One_cover.jpg/220px-Ready_Player_One_cover.jpg",
             Price = 7.99m
         },
-        new Product
+        new ()
         {
             Id = 3,
             Title = "Nineteen Eighty-Four",
