@@ -1,4 +1,5 @@
 global using BlazorECommerce.Shared;
+global using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.ResponseCompression;
 
 
