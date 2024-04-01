@@ -12,9 +12,9 @@ public class Product
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public string ImgUrl { get; set; } = string.Empty;
-    [Column(TypeName = "decimal(18,2)")]
-    public decimal Price { get; set; }
+
     public Category? Category { get; set; }
     //if we want to specify id name by ourselfs -foreign key, if we want to seed data
     public int CategoryId { get; set; }
+    public List<ProductVariant> Variants { get; set; } = new List<ProductVariant>();
 }
