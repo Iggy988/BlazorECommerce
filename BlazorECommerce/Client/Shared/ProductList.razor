@@ -1,5 +1,6 @@
 ﻿@* @inject HttpClient Http *@
 @inject IProductService ProductService
+@implements IDisposable
 
 
 @if (ProductService.Products == null|| ProductService.Products.Count == 0)
@@ -35,12 +36,22 @@ else
 @code {
     private static List<Product> Products = new List<Product>();
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         // var result = await Http.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/product");
         // if (result is not null && result.Data !=null)
         //     Products = result.Data;
 
-        await ProductService.GetProducts();
+        //await ProductService.GetProducts();  - index page is making call
+
+
+        //as soon as ProductsChanged event is invoke we set StateHasChanged - rerendering component
+        ProductService.ProductsChanged += StateHasChanged;
+    }
+
+    //unsuscribe from event
+    public void Dispose()
+    {
+        ProductService.ProductsChanged -= StateHasChanged;
     }
 }
