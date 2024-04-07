@@ -90,6 +90,22 @@ public class ProductService : IProductService
 
             if (product.Description is not null)
             {
+
+                /*
+                 var punctuation = product.Description.Where(char.IsPunctuation).Distinct().ToArray();
+
+                The char.IsPunctuation is a method that checks if a character is a punctuation.
+                Distinct(): This method is used to ensure that each punctuation character is included only once in the result
+                ToArray(): This method is used to convert the result into an array.
+                For example, if product.Description is "Hello, World! How's it going?", the punctuation variable will be an array containing [',', '!', ''', '?'].
+                var words = product.Description.Split().Select(s => s.Trim(punctuation));
+                This line of code is splitting the product.Description string into words and removing any leading or trailing punctuation from each word.
+                product.Description.Split(): This splits the product.Description string into words based on spaces.
+                Select(s => s.Trim(punctuation)): This uses a LINQ query to remove any leading or trailing punctuation from each word. 
+                The Trim() method removes characters from the start and end of a string. Here it’s being used with the punctuation array as an argument, so it removes any leading or trailing punctuation characters.
+                For example, if product.Description is "Hello, World! How's it going?", the words variable will be an array containing ["Hello", "World", "How", "s", "it", "going"].
+                 */
+
                 var punctuation = product.Description.Where(char.IsPunctuation).Distinct().ToArray();
                 var words = product.Description.Split().Select(s => s.Trim(punctuation));
 
