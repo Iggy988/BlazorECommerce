@@ -16,5 +16,6 @@ public class Product
     public Category? Category { get; set; }
     //if we want to specify id name by ourselfs -foreign key, if we want to seed data
     public int CategoryId { get; set; }
+    public bool Featured { get; set; } = false;
     public List<ProductVariant> Variants { get; set; } = new List<ProductVariant>();
 }
