@@ -26,7 +26,7 @@ public class ProductService : IProductService
     {
         //if we dont get categoryUrl we return all product page, else we return page with specific category
         var result = categoryUrl == null ?
-            await _httpClient.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/product") :
+            await _httpClient.GetFromJsonAsync<ServiceResponse<List<Product>>>("api/product/featured") :
             await _httpClient.GetFromJsonAsync<ServiceResponse<List<Product>>>($"api/product/category/{categoryUrl}");
         if (result is not null && result.Data != null)
             Products = result.Data;
