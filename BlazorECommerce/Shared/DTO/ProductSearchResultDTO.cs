@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BlazorECommerce.Shared.DTO;
-public class ProductSearchResult
+public class ProductSearchResultDTO
 {
     public List<Product> Products { get; set; } = new();
     public int Pages { get; set; }
