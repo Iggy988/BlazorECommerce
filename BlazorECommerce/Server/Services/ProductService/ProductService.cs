@@ -59,13 +59,18 @@ public class ProductService : IProductService
 
     public async Task<ServiceResponse<ProductSearchResultDTO>> SearchProducts(string searchText, int page)
     {
-        var pageResults = 2f;
+        var pageResults = 2f; //sets the number of results per page to 2
+        //calculates the total number of pages by dividing the total number of products found by
+        //FindProductBySearchText(searchText) by the number of results per page. It rounds up to the nearest whole number using Math.Ceiling.
         var pageCount = Math.Ceiling((await FindProductBySearchText(searchText)).Count()/pageResults);
+        //search for products in the _context.Products database where the product title or description contains the searchText.
         var products = await _context.Products
                             .Where(p => p.Title.ToLower().Contains(searchText.ToLower())
                                          ||
                                          p.Description.ToLower().Contains(searchText.ToLower()))
+                            //It includes the product variants in the results
                             .Include(p => p.Variants)
+                            //skips the products of the previous pages and takes only the products for the current page.
                             .Skip((page - 1) * (int)pageResults)
                             .Take((int)pageResults)
                             .ToListAsync();
