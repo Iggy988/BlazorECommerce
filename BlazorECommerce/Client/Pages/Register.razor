@@ -24,9 +24,10 @@
         <InputText id="confirmPassword" @bind-Value="user.ConfirmPassword" class="form-control" type="password" />
         <ValidationMessage For="@(() => user.ConfirmPassword)" />
     </div>
-    <button type="submit" class="btn btn-primary">Register</button>
+    <button type="submit" class="btn btn-primary mb-3">Register</button>
+    
     <div class="text-danger">
-        <span>@errorMessage</span>
+        <span class="@messageCssClass">@message</span>
     </div>
     <ValidationSummary />
 </EditForm>
@@ -34,18 +35,20 @@
 @code {
     UserRegister user = new UserRegister();
 
-    string errorMessage = string.Empty;
+    string message = string.Empty;
+    string messageCssClass = string.Empty;
 
     async Task HandleRegistration()
     {
         var result = await AuthService.Register(user);
-        if (!result.Success)
+        message = result.Message;
+        if (result.Success)
         {
-            errorMessage = result.Message;
+            messageCssClass = "text-success";
         }
         else
         {
-            errorMessage = string.Empty;
+            messageCssClass = "text-danger";
         }
     }
 }

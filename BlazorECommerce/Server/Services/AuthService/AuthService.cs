@@ -32,7 +32,8 @@ public class AuthService : IAuthService
 
         return new ServiceResponse<int>
         {
-            Data = user.Id
+            Data = user.Id,
+            Message = "Registration Successfull!"
         };
     }
 
