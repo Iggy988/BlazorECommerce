@@ -11,15 +11,15 @@ public class AuthService : IAuthService
     }
     public async Task<ServiceResponse<int>> Register(UserRegister request)
     {
-        var result = await _http.PostAsJsonAsync("api/register", request);
+        var result = await _http.PostAsJsonAsync("api/auth/register", request);
 
-        ServiceResponse<int>? serviceResponse = await result.Content.ReadFromJsonAsync<ServiceResponse<int>>();
-        if (serviceResponse == null)
-        {
-            throw new Exception("Deserialization failed");
-        }
-        return serviceResponse;
+        //ServiceResponse<int>? serviceResponse = await result.Content.ReadFromJsonAsync<ServiceResponse<int>>();
+        //if (serviceResponse == null)
+        //{
+        //    throw new Exception("Deserialization failed");
+        //}
+        //return serviceResponse;
 
-        //return await result.Content.ReadFromJsonAsync<ServiceResponse<int>>();
+        return await result.Content.ReadFromJsonAsync<ServiceResponse<int>>();
     }
 }
