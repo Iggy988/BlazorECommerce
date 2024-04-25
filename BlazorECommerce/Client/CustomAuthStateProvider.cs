@@ -23,8 +23,7 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
     //and then with that info, app will know is this user authenticated or not
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {
-        string authToken = await _localStorageService.GetItemAsStringAsync("authToken") ?? 
-            throw new InvalidOperationException("Authentication token not found");
+        string authToken = await _localStorageService.GetItemAsStringAsync("authToken");
 
         var identity = new ClaimsIdentity();
         //user is currently in this stage unauthorize
@@ -35,8 +34,8 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
             try
             {
                 identity = new ClaimsIdentity(ParseClaimsFromJwt(authToken), "jwt");
-                _http.DefaultRequestHeaders.Authorization = 
-                    new AuthenticationHeaderValue("Bearer", authToken.Replace("\"","")); //remove "
+                _http.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", authToken.Replace("\"", ""));
             }
             catch
             {
@@ -44,6 +43,7 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
                 identity = new ClaimsIdentity();
             }
         }
+
 
         var user = new ClaimsPrincipal(identity);
         var state = new AuthenticationState(user);
@@ -89,10 +89,10 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
         //The payload is a JSON string that represents a set of claims.
         //The JsonSerializer.Deserialize<Dictionary<string, string>>(jsonBytes) method
         //is used to convert this JSON string into a dictionary of key-value pairs
-        var keyValuePairs = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonBytes);
+        var keyValuePairs = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonBytes);
         //Finally, the method iterates over the key-value pairs in the dictionary, creating a Claim object for each pair.
         //The key of the pair is used as the claim type, and the value of the pair is used as the claim value
-        var claims = keyValuePairs.Select(kvp => new Claim(kvp.Key, kvp.Value));
+        var claims = keyValuePairs.Select(kvp => new Claim(kvp.Key, kvp.Value.ToString()));
 
         return claims;
     }
