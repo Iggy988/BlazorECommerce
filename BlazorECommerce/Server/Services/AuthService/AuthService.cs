@@ -45,8 +45,11 @@ public class AuthService : IAuthService
     {
         using (var hmac = new HMACSHA512(passwordSalt))
         {
+            //The ComputeHash method takes a byte array and returns the hash as a byte array.
+            //Here, it’s computing the hash of the provided password
             var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-
+            //The SequenceEqual method checks if two sequences are equal by comparing the elements by using the default equality
+            //comparer for their type. Here, it’s comparing the computed hash of the provided password with the correct password hash.
             return computedHash.SequenceEqual(passwordHash);
         }
     }
@@ -119,5 +122,31 @@ public class AuthService : IAuthService
         var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
         return jwt;
+    }
+
+    public async Task<ServiceResponse<bool>> ChangePassword(int userId, string newPassword)
+    {
+        var user = await _context.Users.FindAsync(userId);
+        if (user == null)
+        {
+            return new ServiceResponse<bool>
+            {
+                Success = false,
+                Message = "User not found"
+            };
+        }
+
+        CreatePasswordHash(newPassword, out byte[] passwordHash, out byte[] passwordSalt);
+
+        user.PasswordHash = passwordHash;
+        user.PasswordSalt = passwordSalt;
+
+        await _context.SaveChangesAsync();
+
+        return new ServiceResponse<bool>
+        {
+            Data = true,
+            Message = "Password has been changed."
+        };
     }
 }
