@@ -1,5 +1,7 @@
 ﻿@page "/register"
 @inject IAuthService AuthService
+@inject NavigationManager NavigationManager
+
 
 <PageTitle>Register</PageTitle>
 
@@ -45,10 +47,13 @@
         if (result.Success)
         {
             messageCssClass = "text-success";
+            NavigationManager.NavigateTo(""); // Navigate to homepage
         }
         else
         {
             messageCssClass = "text-danger";
         }
+
+        
     }
 }
