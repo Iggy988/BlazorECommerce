@@ -1,4 +1,5 @@
 ﻿
+using BlazorECommerce.Client.Pages;
 using BlazorECommerce.Shared;
 using BlazorECommerce.Shared.DTO;
 using System.Collections.Generic;
@@ -84,6 +85,22 @@ public class CartService : ICartService
             cart.Remove(cartItem);
             await _localStorage.SetItemAsync("cart", cart);
             OnChange.Invoke();
+        }
+    }
+
+    public async Task StoreCartItems(bool emptyLocalCart = false)
+    {
+        var localCart = await _localStorage.GetItemAsync<List<CartItem>>("cart");
+        if (localCart == null)
+        {
+            return;
+        }
+
+        await _http.PostAsJsonAsync("api/cart", localCart);
+
+        if (emptyLocalCart)
+        {
+            await _localStorage.RemoveItemAsync("cart");
         }
     }
 
