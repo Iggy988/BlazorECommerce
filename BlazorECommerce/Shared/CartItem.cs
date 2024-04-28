@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace BlazorECommerce.Shared;
 public class CartItem
 {
+    public int UserId { get; set; }
     public int ProductId { get; set; }
     public int ProductTypeId { get; set; }
     public int Quantity { get; set; } = 1; //stavljamo default value 1 da se cart moze povecati kad izbrisemo i didamo item

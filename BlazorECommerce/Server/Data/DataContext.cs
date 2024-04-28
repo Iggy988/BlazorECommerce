@@ -10,6 +10,9 @@ public class DataContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<CartItem>()
+            .HasKey(ci => new { ci.UserId, ci.ProductId, ci.ProductTypeId });
+
         //set composite key -primary key for productVariant, that is combinantion of ProductId and ProductTypeId
         modelBuilder.Entity<ProductVariant>()
             .HasKey(x => new { x.ProductId, x.ProductTypeId});
@@ -274,4 +277,5 @@ public class DataContext : DbContext
     public DbSet<ProductType> ProductTypes{ get; set; }
     public DbSet<ProductVariant> ProductVariants{ get; set; }
     public DbSet<User> Users{ get; set; }
+    public DbSet<CartItem> CartItems{ get; set; }
 }
