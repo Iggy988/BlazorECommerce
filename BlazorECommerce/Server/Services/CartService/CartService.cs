@@ -6,6 +6,8 @@ namespace BlazorECommerce.Server.Services.CartService;
 public class CartService : ICartService
 {
     private readonly DataContext _context;
+    //allows you to access various aspects of the HTTP request and response, such as headers,
+    //cookies, query parameters, and user claims
     private readonly IHttpContextAccessor _httpContextAccessor;
 
     public CartService(DataContext context, IHttpContextAccessor httpContextAccessor)
@@ -72,5 +74,16 @@ public class CartService : ICartService
         await _context.SaveChangesAsync();
 
         return await GetCartProducts(await _context.CartItems.Where(ci => ci.UserId == GetUserId()).ToListAsync());
+    }
+
+    public async Task<ServiceResponse<int>> GetCartItemsCount()
+    {
+        var count = (await _context.CartItems.Where(ci => ci.UserId == GetUserId()).ToListAsync()).Count;
+
+        return new ServiceResponse<int>
+        {
+            Data = count
+        };
+
     }
 }
