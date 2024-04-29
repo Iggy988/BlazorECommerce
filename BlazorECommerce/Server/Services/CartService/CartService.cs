@@ -73,7 +73,9 @@ public class CartService : ICartService
         _context.CartItems.AddRange(cartItems);
         await _context.SaveChangesAsync();
 
-        return await GetCartProducts(await _context.CartItems.Where(ci => ci.UserId == GetUserId()).ToListAsync());
+        //return await GetCartProducts(await _context.CartItems.Where(ci => ci.UserId == GetUserId()).ToListAsync());
+
+        return await GetDbCartProducts();
     }
 
     public async Task<ServiceResponse<int>> GetCartItemsCount()
@@ -85,5 +87,11 @@ public class CartService : ICartService
             Data = count
         };
 
+    }
+
+    public async Task<ServiceResponse<List<CartProductResponseDTO>>> GetDbCartProducts()
+    {
+        return await GetCartProducts(await _context.CartItems
+            .Where(ci => ci.UserId == GetUserId()).ToListAsync());
     }
 }
