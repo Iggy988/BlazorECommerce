@@ -1,4 +1,5 @@
-﻿using BlazorECommerce.Shared.DTO;
+﻿using BlazorECommerce.Shared;
+using BlazorECommerce.Shared.DTO;
 using System.Security.Claims;
 
 namespace BlazorECommerce.Server.Services.CartService;
@@ -139,5 +140,31 @@ public class CartService : ICartService
         {
             Data = true
         };
+    }
+
+    public async Task<ServiceResponse<bool>> RemoveItemFromCart(int productId, int productTypeId)
+    {
+        var dbCartItem = await _context.CartItems
+            .FirstOrDefaultAsync(ci => ci.ProductId == productId &&
+            ci.ProductTypeId == productTypeId && ci.UserId == GetUserId());
+
+        if (dbCartItem == null)
+        {
+            return new ServiceResponse<bool>
+            {
+                Data = false,
+                Success = false,
+                Message = "Cart item does not exist"
+            };
+        }
+
+        _context.CartItems.Remove(dbCartItem);
+        await _context.SaveChangesAsync();
+
+        return new ServiceResponse<bool>
+        {
+            Data = true
+        };
+
     }
 }
