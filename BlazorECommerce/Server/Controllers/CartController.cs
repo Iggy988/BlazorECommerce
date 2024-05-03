@@ -31,10 +31,18 @@ public class CartController : ControllerBase
     }
 
     [HttpPost("add")]
-    public async Task<ActionResult<bool>> AddToCart(CartItem cartItems)
+    public async Task<ActionResult<ServiceResponse<bool>>> AddToCart(CartItem cartItems)
     {
         
         var result = await _cartService.AddToCart(cartItems);
+        return Ok(result);
+    }
+
+    [HttpPut("update-quantity")]
+    public async Task<ActionResult<ServiceResponse<bool>>> UpdateQuantity(CartItem cartItems)
+    {
+
+        var result = await _cartService.UpdateQuantity(cartItems);
         return Ok(result);
     }
 
