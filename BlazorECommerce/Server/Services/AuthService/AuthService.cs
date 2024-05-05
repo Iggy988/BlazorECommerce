@@ -10,12 +10,20 @@ public class AuthService : IAuthService
 {
     private readonly DataContext _context;
     private readonly IConfiguration _configuration;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public AuthService(DataContext context, IConfiguration configuration)
+    //IHttpContextAccessor is a built-in interface in ASP.NET Core that provides access to the HttpContext1HttpContext encapsulates
+    //all HTTP-specific information about an individual HTTP request and response2.
+    //allows you to access various aspects of the HTTP request and response, such as headers,
+    //cookies, query parameters, and user claims
+    public AuthService(DataContext context, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
         _configuration = configuration;
+        _httpContextAccessor = httpContextAccessor;
     }
+
+    public int GetUserId() => int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
 
     public async Task<ServiceResponse<string>> Login(string email, string password)
     {
