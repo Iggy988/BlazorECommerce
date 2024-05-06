@@ -1,4 +1,5 @@
 ﻿
+using BlazorECommerce.Shared.DTO;
 using Microsoft.AspNetCore.Components;
 
 namespace BlazorECommerce.Client.Services.OrderService;
@@ -14,6 +15,13 @@ public class OrderService : IOrderService
         _http = http;
         _authStateProvider = authStateProvider;
         _navigationManager = navigationManager;
+    }
+
+    public async Task<List<OrderOverviewResponseDTO>> GetOrders()
+    {
+        var result = await 
+            _http.GetFromJsonAsync<ServiceResponse<List<OrderOverviewResponseDTO>>>("api/order");
+        return result.Data;
     }
 
     public async Task PlaceOrder()
