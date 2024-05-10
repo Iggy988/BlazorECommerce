@@ -158,4 +158,9 @@ public class AuthService : IAuthService
             Message = "Password has been changed."
         };
     }
+
+    public async Task<User> GetUserByEmail(string email)
+    {
+        return await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
+    }
 }
