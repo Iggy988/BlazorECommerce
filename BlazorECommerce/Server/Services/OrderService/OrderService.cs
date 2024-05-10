@@ -9,7 +9,7 @@ public class OrderService : IOrderService
     private readonly DataContext _context;
     private readonly ICartService _cartService;
     private readonly IAuthService _authService;
-    private readonly IHttpContextAccessor _httpContextAccessor;
+    //private readonly IHttpContextAccessor _httpContextAccessor;
 
     public OrderService(DataContext context, ICartService cartService, IAuthService authService)
     {
