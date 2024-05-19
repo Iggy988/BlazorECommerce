@@ -10,8 +10,6 @@ public class PaymentService : IPaymentService
     private readonly IOrderService _orderService;
     private readonly IConfiguration _config;
 
-    const string secret = "whsec_b4cb9c0f6a5a6eef415b4c452fecfa04a2bba4c252d85368099929715cf1e76a";
-
     public PaymentService(ICartService cartService, IAuthService authService, IOrderService orderService, IConfiguration config)
     {
         _cartService = cartService;
@@ -24,6 +22,9 @@ public class PaymentService : IPaymentService
 
 
     }
+
+    //const string secret = "whsec_b4cb9c0f6a5a6eef415b4c452fecfa04a2bba4c252d85368099929715cf1e76a";
+    
 
     public async Task<Session> CreateCheckoutSession()
     {
@@ -77,7 +78,7 @@ public class PaymentService : IPaymentService
             var stripeEvent = EventUtility.ConstructEvent(
                 json,
                 request.Headers["Stripe-Signature"],
-                secret
+                _config["AppSecret:MyAPISecret"]
                 );
             if (stripeEvent.Type == Events.CheckoutSessionCompleted )
             {
