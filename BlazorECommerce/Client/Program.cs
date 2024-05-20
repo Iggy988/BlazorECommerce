@@ -11,7 +11,6 @@ global using BlazorECommerce.Client.Services.AddressService;
 using BlazorECommerce.Client;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Syncfusion.Blazor;
 
 
 
