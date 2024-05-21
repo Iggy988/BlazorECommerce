@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,4 +13,11 @@ public class Category
 
     //localhost:7118/products/category/video-game/
     public string Url { get; set; } = string.Empty;
+
+    public bool Visible { get; set; } = true;
+    public bool Deleted { get; set; } = false;
+    [NotMapped]
+    public bool Editing { get; set; } = false;
+    [NotMapped]
+    public bool IsNew { get; set; } = false;
 }
