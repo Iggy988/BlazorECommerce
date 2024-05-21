@@ -1,6 +1,7 @@
 ﻿
 using BlazorECommerce.Shared.DTO;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace BlazorECommerce.Client.Services.OrderService;
 

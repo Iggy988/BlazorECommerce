@@ -4,13 +4,14 @@ global using BlazorECommerce.Client.Services.CategoryService;
 global using BlazorECommerce.Client.Services.CartService;
 global using Blazored.LocalStorage;
 global using BlazorECommerce.Client.Services.AuthService;
-global using Microsoft.AspNetCore.Components.Authorization;
+
 global using BlazorECommerce.Client.Services.OrderService;
 global using BlazorECommerce.Client.Services.AddressService;
 
 using BlazorECommerce.Client;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.AspNetCore.Components.Authorization;
 
 
 

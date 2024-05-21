@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.AspNetCore.Components.Authorization;
+
 namespace BlazorECommerce.Client.Services.AuthService;
 
 public class AuthService : IAuthService
